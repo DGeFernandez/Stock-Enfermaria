@@ -84,16 +84,16 @@ identificarProfesional()
 menu()
 
 menuOpciones= input("Ingrese la opción: ")
-while menuOpciones != 0:
-    if menuOpciones == 1:
+while menuOpciones != "0":
+    if menuOpciones == "1":
         print("Ud. puede agregar un insumo.-")
-    elif menuOpciones == 2:
+    elif menuOpciones ==" 2":
         print("Ud. puede modificar un insumo.-")
-    elif menuOpciones == 3:
+    elif menuOpciones == "3":
         print("Ud. puede eliminar un insumo.-")
-    elif menuOpciones == 4:
+    elif menuOpciones == "4":
         print("Ud. puede buscar un insumo.-")
-    elif menuOpciones == 5:
+    elif menuOpciones == "5":
         print("Ud. puede listar un insumo.-")
     else: # Termina con else porque no inicie con True el bucle while, sino debo colocar break antes del else.-
         print("La opción no es válida! Presione enter para continuar.- ")
