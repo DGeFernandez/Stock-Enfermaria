@@ -77,9 +77,9 @@ def menu():
     print(colorama.Fore.LIGHTGREEN_EX +"Stock de Enfermería Pediatría en Centro de Atención Comunitaria".center(45))
     print("-"*65)
     print(colorama.Fore.CYAN +"1.-" + colorama.Fore.RESET + "Para agregar un insumo ")
-    print(colorama.Fore.CYAN +"2.-" + colorama.Fore.RESET + "Para buscar un insumo ")
-    print(colorama.Fore.CYAN +"3.-" + colorama.Fore.RESET + "Para modificar un insumo ")
-    print(colorama.Fore.CYAN +"4.-" + colorama.Fore.RESET + "Para eliminar un insumo ")
+    print(colorama.Fore.CYAN +"2.-" + colorama.Fore.RESET + "Para modificar un insumo ")
+    print(colorama.Fore.CYAN +"3.-" + colorama.Fore.RESET + "Para eliminar un insumo ")
+    print(colorama.Fore.CYAN +"4.-" + colorama.Fore.RESET + "Para buscar un insumo ")
     print(colorama.Fore.CYAN +"5.-" + colorama.Fore.RESET + "Para solicitar un insumo ")
     print(colorama.Fore.CYAN +"6.-" + colorama.Fore.RESET + "Para listar los insumo ")
     op=input("Seleccione una opción: ")#le quito el int() porque no necesito que sea un número, sino un string
@@ -100,6 +100,18 @@ def agregarInsumo():
    insumos.append(nuevo_insumo) # Con esto cargamos los datos
    
    enter_para_continuar()
+
+def listar_insumos():
+    c.execute('SELECT * FROM insumos')
+    insumos = c.fetchall()
+    if insumos:
+        print("Lista de insumos:")
+        for insumo in insumos:
+            print(f"ID: {insumo[0]}, Nombre: {insumo[1]}, Cantidad: {insumo[2]}, Descripción: {insumo[3]}")
+    else:
+        print("No hay insumos en el inventario.")
+
+
 
 def buscarInsuno():
     pass
@@ -150,9 +162,13 @@ while menuOpciones != "0":
         print("Ud. puede buscar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
     elif menuOpciones == "5":
-        print("Ud. puede listar un insumo.-")
+        print("Ud. puede solicitar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
-    elif menuOpciones == "0":
+    elif menuOpciones == "6":
+        print("Ud. puede listar los insumo.-")
+        input("Presione enter para continuar.-")
+        listar_insumos()
+    elif menuOpciones == 0:
         print("Gracias por utilizar el programa.-")
         input("Presione enter para salir.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
     else: # Termina con else porque no inicie con True el bucle while, sino debo colocar break antes del else.-
