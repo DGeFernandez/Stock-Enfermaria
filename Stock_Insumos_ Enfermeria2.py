@@ -11,6 +11,7 @@ Version: 1.0
 
 import os
 import colorama # type: ignore # para instalar colorama ( pip install colorama / pip3 install colorama)
+import json
 
 def enter_para_continuar():
     input("Presione enter para continuar") # Se detiene el código un instante y se debe presionar enter para continuar
@@ -74,16 +75,26 @@ def menu():
         retorna la opción seleccionada por el usuario
     '''
     limpiarPantalla()
+    print(colorama.Fore.LIGHTGREEN_EX +"-"*65 +colorama.Fore.RESET )
     print(colorama.Fore.LIGHTGREEN_EX +"Stock de Enfermería Pediatría en Centro de Atención Comunitaria".center(45))
-    print("-"*65)
+    print(colorama.Fore.LIGHTGREEN_EX +"-"*65 + colorama.Fore.RESET)
+    
     print(colorama.Fore.CYAN +"1.-" + colorama.Fore.RESET + "Para agregar un insumo ")
     print(colorama.Fore.CYAN +"2.-" + colorama.Fore.RESET + "Para modificar un insumo ")
     print(colorama.Fore.CYAN +"3.-" + colorama.Fore.RESET + "Para eliminar un insumo ")
     print(colorama.Fore.CYAN +"4.-" + colorama.Fore.RESET + "Para buscar un insumo ")
     print(colorama.Fore.CYAN +"5.-" + colorama.Fore.RESET + "Para solicitar un insumo ")
     print(colorama.Fore.CYAN +"6.-" + colorama.Fore.RESET + "Para listar los insumo ")
-    op=input("Seleccione una opción: ")#le quito el int() porque no necesito que sea un número, sino un string
-    return op
+    print(colorama.Fore.CYAN +"7.-" + colorama.Fore.RESET + "Para salir presione 7.- ")
+    
+    opcion=input("Seleccione una opción: ")
+    return opcion
+
+def cargarInsumos():
+    pass
+
+def guardarInsumos():
+    pass
 
 def agregarInsumo():
    print(""" Asegurese de colocar:
@@ -98,63 +109,105 @@ def agregarInsumo():
       "Medida": input("Ingrese la medida: "),
     }
    insumos.append(nuevo_insumo) # Con esto cargamos los datos
-   
    enter_para_continuar()
+   return
 
-def listar_insumos():
-    c.execute('SELECT * FROM insumos')
-    insumos = c.fetchall()
-    if insumos:
-        print("Lista de insumos:")
-        for insumo in insumos:
-            print(f"ID: {insumo[0]}, Nombre: {insumo[1]}, Cantidad: {insumo[2]}, Descripción: {insumo[3]}")
-    else:
-        print("No hay insumos en el inventario.")
+def modificar_insumo():
+    print(colorama.Fore.BLUE +"Ingrese el insumo a mofificar: "+colorama.Fore.RESET)
 
 
-
+    enter_para_continuar()
+def eliminar_insumos():
+    pass
 def buscarInsuno():
     pass
-
-def modificarInsumo():
+def solicitar_insumo():
     pass
+# def listar_insumos():
+#     c.execute('SELECT * FROM insumos')
+#     insumos = c.fetchall()
+#     if insumos:
+#         print("Lista de insumos:")
+#         for insumo in insumos:
+#             print(f"ID: {insumo[0]}, Nombre: {insumo[1]}, Cantidad: {insumo[2]}, Descripción: {insumo[3]}")
+#     else:
+#         print("No hay insumos en el inventario.")
 
-#Variable
-insumos= [
-    {
-      "Alcohol": "90°",
-      "Guantes":[" s, m, g"],
-      "Jeringas": ["10 cm³, 20 cm³, 5 cc, 3cc, 1 ml"],
-      "Agujas":  ["25/8, 16/5, 40/8, 50/8"],
-      "Algodón": "90",
-      "Catéteres": "intravenosos",
-      "Llave": "3 vías",
-      "Butter": "flay",
-      "Prolongadores": ["B14 y B17"],
-      "Sondas vesicales":[ "10, 12, 14"],
-      "Sondas naso-gástricas": ["30, 31"],
-      "Máscaras": "p/nbz",
-      "Máscaras de oxígeno": "niño",
-      "Cánulas": "0",
-      "Guías": "bomba",
-      "Guías": "N.E",
-      "Agua": "oxigenada"
-    }
-]
+
+
+# Diccionario
+
+insumos_dicc = {
+    "Guantes": ["tamaño S"],
+    "Guantes": ["tamaño M"],
+    "Guantes": ["tamaño G"],
+    "Jeringas": ["10 cm³"],
+    "Jeringas": ["20 cm³"],
+    "Jeringas": ["5 cc"],
+    "Jeringas": ["3 cc"],
+    "Jeringas": ["1 ml"],
+    "Agujas": ["25/8"],
+    "Agujas": ["16/5"],
+    "Agujas": ["40/8"],
+    "Agujas": ["50/8"],
+    "Algodón": "plegado 500gr",
+    "Alcohol etílico o etanol":"70%",
+    "Alcohol etílico o etanol":"90%",
+    "Catéteres intravenosos": "venoso central",
+    "Catéteres intravenosos": "corto",
+    "Llave de 3 vías": "con conector luer",
+    "Llave de 3 vías": "sin conector luer",
+    "Butter flay": "Catéter para venoclisis MARIPOSA VENOFIX G-23 20 mm.",
+    "Prolongadores": "B17",
+    "Prolongadores": "B14",
+    "Sondas vesicales para niños": ["10"],
+    "Sondas vesicales para niños": ["12"],
+    "Sondas vesicales para niños": ["14"],
+    "Sondas naso-gástricas para niños": ["30"],
+    "Sondas naso-gástricas para niños": ["31"],
+    "Máscaras p/nbz":"Flexible PVC",
+    "Máscaras de oxígeno": "Gafas Nasales",
+    "Mascarilla de oxígeno":" Simple",
+    "Mascarilla de oxígeno":"con Reservorio",
+    "Mascarilla de oxígeno": "tipo Venturi",
+    "Cánulas": "Cánulas intravenosas",
+    "Cánulas": "Cánulas nasales",
+    "Guías de bomba":"para desplazamiento positivo",
+    "Guías de bomba":"para lineares peristálticas",
+    "Guías de bomba":"para peristálticas rotativas.",
+    "Agua oxigenada": "peróxido de hidrógeno 30%",
+    "Agua oxigenada": "peróxido de hidrógeno 50%",
+    "Agua oxigenada": "peróxido de hidrógeno 9%",
+    "Pervinox solución":"Povidona-Iodo",
+    "Pervinox solución jabonosa": "Betadine Povidona-Iodo ",
+    "Gasas": "Gasa estéril",
+    "Gasas": "Gasa no estéril",
+    "Gasas": "Gasa hidrófila",
+    "Gasas": "Gasa adhesiva",
+    "Gasas": "Gasa de malla",
+    "Apósitos":  "Apósitos Hidrocoloides",
+    "Apósitos":  "Apósitos de Silicona.",
+    "Baja lenguas de madera": "Depresor lingual de madera"
+}
+
+print(insumos_dicc)
 
 # Programa Principal
 
 identificarProfesional()
+insumos = cargarInsumos()
 menuOpciones=menu() #esta linea es la que llama a la función menu() y guarda el valor de retorno en la variable menuOpciones
+limpiarPantalla()
 
 while menuOpciones != "0":
     if menuOpciones == "1":
-        print("Ud. puede agregar un insumo.-")
-        input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú 
+        # print("Ud. puede agregar un insumo.-")
+        # input("Presione enter para continuar.-") 
         agregarInsumo()
     elif menuOpciones =="2":
         print("Ud. puede modificar un insumo.-")
-        input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
+        input("Presione enter para continuar.-") 
+        modificar_insumo()
     elif menuOpciones == "3":
         print("Ud. puede eliminar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
@@ -167,12 +220,12 @@ while menuOpciones != "0":
     elif menuOpciones == "6":
         print("Ud. puede listar los insumo.-")
         input("Presione enter para continuar.-")
-        listar_insumos()
-    elif menuOpciones == 0:
+        # listar_insumos()
+    elif menuOpciones == "7":
         print("Gracias por utilizar el programa.-")
         input("Presione enter para salir.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
     else: # Termina con else porque no inicie con True el bucle while, sino debo colocar break antes del else.-
-        print("La opción no es válida! Presione enter para continuar.- ")
+        print("La opción no es válida!")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
     #muestro nuevamente el menú para que el usuario pueda seleccionar otra opción
-    menuOpciones=menu() #esta linea es la que llama a la función menu() y guarda el valor de retorno en la variable menuOpcionesstock
+    #esta linea es la que llama a la función menu() y guarda el valor de retorno en la variable menuOpcionesstock
