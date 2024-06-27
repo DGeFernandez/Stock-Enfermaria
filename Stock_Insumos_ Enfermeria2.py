@@ -8,7 +8,7 @@ Authors: Carolina Nazareno,
 Fecha: 2024
 Version: 1.0
 """
-
+import sqlite3 
 import os
 import colorama # type: ignore # para instalar colorama ( pip install colorama / pip3 install colorama)
 import json
@@ -96,21 +96,19 @@ def cargarInsumos():
 def guardarInsumos():
     pass
 
-def agregarInsumo():
-   print(""" Asegurese de colocar:
-         > La medida del insumo a agregar
-         > El tamaño del insumo a agregar
-         > El cero (0) en caso de no tener tamaño o medida         
-         """)
-
-   nuevo_insumo= {
-      "Nombre": input("Ingrese el insumo: "),
-      "Tamaño": input("Ingrese el tamaño: "),
-      "Medida": input("Ingrese la medida: "),
-    }
-   insumos.append(nuevo_insumo) # Con esto cargamos los datos
-   enter_para_continuar()
-   return
+def ingresar_insumo():
+    nombre = input("Ingrese el nombre del insumo: ")
+    cantidad = int(input("Ingrese la cantidad del insumo: "))
+    descripcion = input("Ingrese la descripción del insumo: ")
+    
+    conn = sqlite3.connect('centro_medico.db') # Esto llama a una base de datos que no existe por eso da error. Será así?
+    c = conn.cursor()
+    c.execute('INSERT INTO insumos (nombre, cantidad, descripcion) VALUES (?, ?, ?)', 
+              (nombre, cantidad, descripcion))
+    conn.commit()
+    conn.close()
+    print(f"Insumo '{nombre}' ingresado con éxito.")
+   
 
 def modificar_insumo():
     print(colorama.Fore.BLUE +"Ingrese el insumo a mofificar: "+colorama.Fore.RESET)
@@ -123,15 +121,20 @@ def buscarInsuno():
     pass
 def solicitar_insumo():
     pass
-# def listar_insumos():
-#     c.execute('SELECT * FROM insumos')
-#     insumos = c.fetchall()
-#     if insumos:
-#         print("Lista de insumos:")
-#         for insumo in insumos:
-#             print(f"ID: {insumo[0]}, Nombre: {insumo[1]}, Cantidad: {insumo[2]}, Descripción: {insumo[3]}")
-#     else:
-#         print("No hay insumos en el inventario.")
+
+def listarInsumos():
+    conn = sqlite3.connect('centro_medico.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM insumos')
+    insumos = c.fetchall()
+    conn.close()
+    
+    if insumos:
+        print("Lista de insumos:")
+        for insumo in insumos:
+            print(f"ID: {insumo[0]}, Nombre: {insumo[1]}, Cantidad: {insumo[2]}, Descripción: {insumo[3]}")
+    else:
+        print("No hay insumos en el inventario.")
 
 
 
@@ -203,7 +206,7 @@ while menuOpciones != "0":
     if menuOpciones == "1":
         # print("Ud. puede agregar un insumo.-")
         # input("Presione enter para continuar.-") 
-        agregarInsumo()
+        ingresar_insumo()
     elif menuOpciones =="2":
         print("Ud. puede modificar un insumo.-")
         input("Presione enter para continuar.-") 
@@ -220,7 +223,7 @@ while menuOpciones != "0":
     elif menuOpciones == "6":
         print("Ud. puede listar los insumo.-")
         input("Presione enter para continuar.-")
-        # listar_insumos()
+        listarInsumos()
     elif menuOpciones == "7":
         print("Gracias por utilizar el programa.-")
         input("Presione enter para salir.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú

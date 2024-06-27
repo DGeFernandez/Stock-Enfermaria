@@ -1,0 +1,19 @@
+Administración del Stock de Insumos de enfermería Pediátrica en un Centro de Atención Comunitaria.
+
+A- Identificarse con usuario y contraseña para ingresar en el programa.
+
+B- Objetivo:
+
+1- Ingresar Insumos
+2- Modificar Insumos
+3- Eliminar Insumos
+4- Buscar Insumos
+5- Solicitar Insumos
+6- Listar Insumos
+7- Salir
+
+No olvidar:
+- Guardar el listado: para lograr la persistencia de los datos con json
+
+-Programa principal:
+Menú con las opciones  
