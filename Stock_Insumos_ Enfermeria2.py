@@ -97,6 +97,13 @@ def guardarInsumos():
     pass
 
 def ingresar_insumo():
+    """
+     Author: Claudio Alejandro Ortega.
+    Fecha: 2024
+    Version: 1.0
+    paramatros:
+        no requiere
+       """
     nombre = input("Ingrese el nombre del insumo: ")
     cantidad = int(input("Ingrese la cantidad del insumo: "))
     descripcion = input("Ingrese la descripción del insumo: ")
@@ -109,16 +116,34 @@ def ingresar_insumo():
     conn.close()
     print(f"Insumo '{nombre}' ingresado con éxito.")
    
-
-def modificar_insumo():
-    print(colorama.Fore.BLUE +"Ingrese el insumo a mofificar: "+colorama.Fore.RESET)
-
-
-    enter_para_continuar()
-def eliminar_insumos():
-    pass
-def buscarInsuno():
-    pass
+def modificar(diccionario,llave,dato):
+    """
+     Author:Carolina Nazareno.
+    Fecha: 2024
+    Version: 1.0
+    paramatros:
+        requiere parámetros
+       """
+    if llave in diccionario:
+        diccionario[llave] = dato
+        return f"El nuevo valor de '{llave}' es '{dato}'"
+    else:
+        return f"El item '{llave}' no se encuentra en la lista."
+        
+def eliminar(diccionario,llave):
+         
+    if llave in diccionario:
+        del(diccionario[llave])
+        return f"Item '{llave}' eliminado."
+    else:
+        return f"El item '{llave}' no se encuentra en la lista."
+    
+def buscar(diccionario,llave):
+    llave=input("Ingrese el insumo a buscar: ")
+    if llave in diccionario:
+       diccionario[llave]= llave
+    else:
+        return f"El insumo '{llave}' no se encuentra en la lista."
 def solicitar_insumo():
     pass
 
@@ -140,83 +165,57 @@ def listarInsumos():
 
 # Diccionario
 
-insumos_dicc = {
-    "Guantes": ["tamaño S"],
-    "Guantes": ["tamaño M"],
-    "Guantes": ["tamaño G"],
-    "Jeringas": ["10 cm³"],
-    "Jeringas": ["20 cm³"],
-    "Jeringas": ["5 cc"],
-    "Jeringas": ["3 cc"],
-    "Jeringas": ["1 ml"],
-    "Agujas": ["25/8"],
-    "Agujas": ["16/5"],
-    "Agujas": ["40/8"],
-    "Agujas": ["50/8"],
+diccionario = {
+    "Guantes": ["tamaño S", "tamaño M", "tamaño G"],
+    "Jeringas": ["10 cm³", "20 cm³", "5 cc", "3 cc", "1 ml"],
+    "Agujas": ["25/8", "16/5", "40/8", "50/8"],
     "Algodón": "plegado 500gr",
-    "Alcohol etílico o etanol":"70%",
-    "Alcohol etílico o etanol":"90%",
-    "Catéteres intravenosos": "venoso central",
-    "Catéteres intravenosos": "corto",
-    "Llave de 3 vías": "con conector luer",
-    "Llave de 3 vías": "sin conector luer",
+    "Alcohol etílico o etanol": ["70%", "90%"],
+    "Catéteres intravenosos": ["venoso central", "corto"],
+    "Llave de 3 vías": ["con conector luer", "sin conector luer"],
     "Butter flay": "Catéter para venoclisis MARIPOSA VENOFIX G-23 20 mm.",
-    "Prolongadores": "B17",
-    "Prolongadores": "B14",
-    "Sondas vesicales para niños": ["10"],
-    "Sondas vesicales para niños": ["12"],
-    "Sondas vesicales para niños": ["14"],
-    "Sondas naso-gástricas para niños": ["30"],
-    "Sondas naso-gástricas para niños": ["31"],
-    "Máscaras p/nbz":"Flexible PVC",
-    "Máscaras de oxígeno": "Gafas Nasales",
-    "Mascarilla de oxígeno":" Simple",
-    "Mascarilla de oxígeno":"con Reservorio",
-    "Mascarilla de oxígeno": "tipo Venturi",
-    "Cánulas": "Cánulas intravenosas",
-    "Cánulas": "Cánulas nasales",
-    "Guías de bomba":"para desplazamiento positivo",
-    "Guías de bomba":"para lineares peristálticas",
-    "Guías de bomba":"para peristálticas rotativas.",
-    "Agua oxigenada": "peróxido de hidrógeno 30%",
-    "Agua oxigenada": "peróxido de hidrógeno 50%",
-    "Agua oxigenada": "peróxido de hidrógeno 9%",
-    "Pervinox solución":"Povidona-Iodo",
-    "Pervinox solución jabonosa": "Betadine Povidona-Iodo ",
-    "Gasas": "Gasa estéril",
-    "Gasas": "Gasa no estéril",
-    "Gasas": "Gasa hidrófila",
-    "Gasas": "Gasa adhesiva",
-    "Gasas": "Gasa de malla",
-    "Apósitos":  "Apósitos Hidrocoloides",
-    "Apósitos":  "Apósitos de Silicona.",
+    "Prolongadores": ["B17", "B14"],
+    "Sondas vesicales para niños": ["10", "12", "14"],
+    "Sondas naso-gástricas para niños": ["30", "31"],
+    "Máscaras p/nbz": "Flexible PVC",
+    "Máscaras de oxígeno": ["Gafas Nasales", "Simple", "con Reservorio", "tipo Venturi"],
+    "Cánulas": ["Cánulas intravenosas", "Cánulas nasales"],
+    "Guías de bomba": ["para desplazamiento positivo", "para lineares peristálticas", "para peristálticas rotativas"],
+    "Agua oxigenada": ["peróxido de hidrógeno 30%", "peróxido de hidrógeno 50%", "peróxido de hidrógeno 9%"],
+    "Pervinox solución": "Povidona-Iodo",
+    "Pervinox solución jabonosa": "Betadine Povidona-Iodo",
+    "Gasas": ["Gasa estéril", "Gasa no estéril", "Gasa hidrófila", "Gasa adhesiva", "Gasa de malla"],
+    "Apósitos": ["Apósitos Hidrocoloides", "Apósitos de Silicona"],
     "Baja lenguas de madera": "Depresor lingual de madera"
 }
 
-print(insumos_dicc)
+
 
 # Programa Principal
 
 identificarProfesional()
-insumos = cargarInsumos()
+diccionario = cargarInsumos()
 menuOpciones=menu() #esta linea es la que llama a la función menu() y guarda el valor de retorno en la variable menuOpciones
 limpiarPantalla()
 
 while menuOpciones != "0":
     if menuOpciones == "1":
-        # print("Ud. puede agregar un insumo.-")
-        # input("Presione enter para continuar.-") 
+        print("Ud. puede agregar un insumo.-")
+        input("Presione enter para continuar.-") 
         ingresar_insumo()
     elif menuOpciones =="2":
         print("Ud. puede modificar un insumo.-")
         input("Presione enter para continuar.-") 
-        modificar_insumo()
+        modificar(diccionario, llave, dato)
+        pass
     elif menuOpciones == "3":
         print("Ud. puede eliminar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
+        eliminar(diccionario)
     elif menuOpciones == "4":
-        print("Ud. puede buscar un insumo.-")
+        insumo=input("Ud. puede buscar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
+        buscar(diccionario,insumo)
     elif menuOpciones == "5":
         print("Ud. puede solicitar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
