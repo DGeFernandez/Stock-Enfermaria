@@ -116,7 +116,7 @@ def ingresar_insumo():
     conn.close()
     print(f"Insumo '{nombre}' ingresado con éxito.")
    
-def modificar(diccionario,llave,dato):
+def modificar(diccionario, llave, dato):
     """
      Author:Carolina Nazareno.
     Fecha: 2024
@@ -124,11 +124,12 @@ def modificar(diccionario,llave,dato):
     paramatros:
         requiere parámetros
        """
-    if llave in diccionario:
-        diccionario[llave] = dato
-        return f"El nuevo valor de '{llave}' es '{dato}'"
+    llave= input("Ingrese insumo a modificar: ")
+    dato= input("Ingrese la descripción a modificar: ")
+    if diccionario.update({llave}) == dato:
+        print(f"El nuevo valor de '{llave}' es '{dato}'")
     else:
-        return f"El item '{llave}' no se encuentra en la lista."
+        return (f"El item '{llave}' no se encuentra en la lista.")
         
 def eliminar(diccionario,llave):
          
@@ -165,7 +166,7 @@ def listarInsumos():
 
 # Diccionario
 
-diccionario = {
+inventario_dicc = {
     "Guantes": ["tamaño S", "tamaño M", "tamaño G"],
     "Jeringas": ["10 cm³", "20 cm³", "5 cc", "3 cc", "1 ml"],
     "Agujas": ["25/8", "16/5", "40/8", "50/8"],
@@ -206,8 +207,8 @@ while menuOpciones != "0":
     elif menuOpciones =="2":
         print("Ud. puede modificar un insumo.-")
         input("Presione enter para continuar.-") 
-        modificar(diccionario, llave, dato)
-        pass
+        modificar(diccionario)
+        
     elif menuOpciones == "3":
         print("Ud. puede eliminar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
