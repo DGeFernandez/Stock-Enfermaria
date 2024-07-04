@@ -8,7 +8,7 @@ Authors: Carolina Nazareno,
 Fecha: 2024
 Version: 1.0
 """
-import sqlite3 
+# import sqlite3 
 import os
 import colorama # type: ignore # para instalar colorama ( pip install colorama / pip3 install colorama)
 import json
@@ -90,8 +90,7 @@ def menu():
     opcion=input("Seleccione una opción: ")
     return opcion
 
-def cargarInsumos():
-    pass
+
 
 def guardarInsumos():
     pass
@@ -104,70 +103,90 @@ def ingresar_insumo():
     paramatros:
         no requiere
        """
+    insumos = leer_json()
     nombre = input("Ingrese el nombre del insumo: ")
     cantidad = int(input("Ingrese la cantidad del insumo: "))
     descripcion = input("Ingrese la descripción del insumo: ")
     
-    conn = sqlite3.connect('centro_medico.db') # Esto llama a una base de datos que no existe por eso da error. Será así?
-    c = conn.cursor()
-    c.execute('INSERT INTO insumos (nombre, cantidad, descripcion) VALUES (?, ?, ?)', 
-              (nombre, cantidad, descripcion))
-    conn.commit()
-    conn.close()
+    insumo = {
+        "id": len(insumos) + 1,
+        "nombre": nombre,
+        "cantidad": cantidad,
+        "descripcion": descripcion
+    }
+    
+    insumos.append(insumo)
+    escribir_json(insumos)
     print(f"Insumo '{nombre}' ingresado con éxito.")
    
-def modificar(diccionario, llave, dato):
-    """
-     Author:Carolina Nazareno.
-    Fecha: 2024
-    Version: 1.0
-    paramatros:
-        requiere parámetros
-       """
-    llave= input("Ingrese insumo a modificar: ")
-    dato= input("Ingrese la descripción a modificar: ")
-    if diccionario.update({llave}) == dato:
-        print(f"El nuevo valor de '{llave}' es '{dato}'")
+def modificar():
+    '''Recibe el diccionario donde modificar las cosas, el item a buscar(llave)
+    y el nuevo valor a ser asignado(dato), muestra mensajes de confirmacion o de error
+    ydevuelve el diccionario modificado'''
+    if "llave" in inventario_dicc:
+        inventario_dicc["llave"] = "dato"
+        print (f"El nuevo valor de '{"llave"}' es '{"dato"}'")
     else:
-        return (f"El item '{llave}' no se encuentra en la lista.")
+        print (f"El item '{"llave"}' no se encuentra en la lista.")
+    return inventario_dicc
         
-def eliminar(diccionario,llave):
-         
-    if llave in diccionario:
-        del(diccionario[llave])
-        return f"Item '{llave}' eliminado."
-    else:
-        return f"El item '{llave}' no se encuentra en la lista."
+def eliminar(inventario_dicc,llave):
+    '''Recibe el diccionario donde modificar las cosas, el item a eliminar(llave)
+    muestra mensajes de confirmacion o de error y devuelve el diccionario modificado'''
+    llave=input("Ingrese el insumo a eliminar: ")
     
-def buscar(diccionario,llave):
-    llave=input("Ingrese el insumo a buscar: ")
-    if llave in diccionario:
-       diccionario[llave]= llave
+    if llave in inventario_dicc:
+        del(inventario_dicc[llave])
+        print (f"Item '{llave}' eliminado.")
     else:
-        return f"El insumo '{llave}' no se encuentra en la lista."
+        print (f"El item '{llave}' no se encuentra en la lista.")
+    return inventario_dicc
+    
+def buscar(inventario_dicc,llave):
+    '''Recibe el diccionario en donde buscar las cosas y el item a buscar(llave)
+    y lo muestra en pantalla, no retorna nada'''
+    if llave in inventario_dicc:
+        print (f"{inventario_dicc[llave]}")
+    else:
+        print (f"El ítem '{llave}' no se encuentra en la lista.")
 def solicitar_insumo():
-    pass
-
-def listarInsumos():
-    conn = sqlite3.connect('centro_medico.db')
-    c = conn.cursor()
-    c.execute('SELECT * FROM insumos')
-    insumos = c.fetchall()
-    conn.close()
-    
-    if insumos:
-        print("Lista de insumos:")
+    insumos = leer_json()
+    try:
+        id_insumo = int(input("Ingrese el ID del insumo que desea solicitar: "))
+        cantidad_solicitada = int(input("Ingrese la cantidad solicitada: "))
+        
         for insumo in insumos:
-            print(f"ID: {insumo[0]}, Nombre: {insumo[1]}, Cantidad: {insumo[2]}, Descripción: {insumo[3]}")
-    else:
-        print("No hay insumos en el inventario.")
+            if insumo['id'] == id_insumo:
+                if insumo['cantidad'] >= cantidad_solicitada:
+                    insumo['cantidad'] -= cantidad_solicitada
+                    escribir_json(insumos)
+                    print(f"Solicitud realizada con éxito. Nueva cantidad de {insumo['nombre']}: {insumo['cantidad']}")
+                else:
+                    print("No hay suficiente cantidad disponible para esta solicitud.")
+                break
+        else:
+            print("El insumo con el ID proporcionado no existe.")
+    except ValueError:
+        print("Ingrese un valor numérico válido.")
 
+def listar(inventario_dicc):
+    '''Recibe el diccionario, lo muestra, no retorna nada'''
+    print("\nLista:")
+    for key, value in inventario_dicc.items():
+        if isinstance(value, list):
+            value_str = ", ".join(value)
+        else:
+            value_str = value
+        print(f"{key}: {value_str}")
+
+def main():
+    inventario_dicc = cargar_inv('inventario_dicc.json')
 
 
 # Diccionario
 
 inventario_dicc = {
-    "Guantes": ["tamaño S", "tamaño M", "tamaño G"],
+    "sGuante": ["tamaño S", "tamaño M", "tamaño G"],
     "Jeringas": ["10 cm³", "20 cm³", "5 cc", "3 cc", "1 ml"],
     "Agujas": ["25/8", "16/5", "40/8", "50/8"],
     "Algodón": "plegado 500gr",
@@ -195,7 +214,7 @@ inventario_dicc = {
 # Programa Principal
 
 identificarProfesional()
-diccionario = cargarInsumos()
+
 menuOpciones=menu() #esta linea es la que llama a la función menu() y guarda el valor de retorno en la variable menuOpciones
 limpiarPantalla()
 
@@ -203,27 +222,28 @@ while menuOpciones != "0":
     if menuOpciones == "1":
         print("Ud. puede agregar un insumo.-")
         input("Presione enter para continuar.-") 
-        ingresar_insumo()
+        # ingresar_insumo()
+        pass
     elif menuOpciones =="2":
         print("Ud. puede modificar un insumo.-")
         input("Presione enter para continuar.-") 
-        modificar(diccionario)
+        modificar()
         
     elif menuOpciones == "3":
         print("Ud. puede eliminar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
-        eliminar(diccionario)
+        eliminar(inventario_dicc,llave)
     elif menuOpciones == "4":
         insumo=input("Ud. puede buscar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
-        buscar(diccionario,insumo)
+        buscar(inventario_dicc,llave)
     elif menuOpciones == "5":
         print("Ud. puede solicitar un insumo.-")
         input("Presione enter para continuar.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
     elif menuOpciones == "6":
         print("Ud. puede listar los insumo.-")
         input("Presione enter para continuar.-")
-        listarInsumos()
+        listar(inventario_dicc)
     elif menuOpciones == "7":
         print("Gracias por utilizar el programa.-")
         input("Presione enter para salir.-") #para poder leer el mensaje anterior antes de volver a mostrar el menú
