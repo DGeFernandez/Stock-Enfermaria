@@ -1,0 +1,82 @@
+{
+    "Guante": [
+        "tama\u00f1o S",
+        "tama\u00f1o M",
+        "tama\u00f1o G"
+    ],
+    "Jeringas": [
+        "10 cm\u00b3",
+        "20 cm\u00b3",
+        "5 cc",
+        "3 cc",
+        "1 ml"
+    ],
+    "Agujas": [
+        "25/8",
+        "16/5",
+        "40/8",
+        "50/8"
+    ],
+    "Algod\u00f3n": "plegado 500gr",
+    "Alcohol et\u00edlico o etanol": [
+        "70%",
+        "90%"
+    ],
+    "Cat\u00e9teres intravenosos": [
+        "venoso central",
+        "corto"
+    ],
+    "Llave de 3 v\u00edas": [
+        "con conector luer",
+        "sin conector luer"
+    ],
+    "Butterfly": "Cat\u00e9ter para venoclisis MARIPOSA VENOFIX G-23 20 mm.",
+    "Prolongadores": [
+        "B17",
+        "B14"
+    ],
+    "Sondas vesicales para ni\u00f1os": [
+        "10",
+        "12",
+        "14"
+    ],
+    "Sondas naso-g\u00e1stricas para ni\u00f1os": [
+        "30",
+        "31"
+    ],
+    "M\u00e1scaras p/nbz": "Flexible PVC",
+    "M\u00e1scaras de ox\u00edgeno": [
+        "t/C\u00e1nulas Nasales",
+        "Simple",
+        "con Reservorio",
+        "tipo Venturi"
+    ],
+    "C\u00e1nulas": [
+        "C\u00e1nulas intravenosas",
+        "C\u00e1nulas nasales"
+    ],
+    "Gu\u00edas de bomba": [
+        "para desplazamiento positivo",
+        "para lineares perist\u00e1lticas",
+        "para perist\u00e1lticas rotativas"
+    ],
+    "Agua oxigenada": [
+        "per\u00f3xido de hidr\u00f3geno 30%",
+        "per\u00f3xido de hidr\u00f3geno 50%",
+        "per\u00f3xido de hidr\u00f3geno 9%"
+    ],
+    "Pervinox soluci\u00f3n": "Povidona-Iodo",
+    "Pervinox soluci\u00f3n jabonosa": "Betadine Povidona-Iodo",
+    "Gasas": [
+        "Gasa est\u00e9ril",
+        "Gasa no est\u00e9ril",
+        "Gasa hidr\u00f3fila",
+        "Gasa adhesiva",
+        "Gasa de malla"
+    ],
+    "Ap\u00f3sitos": [
+        "Ap\u00f3sitos Hidrocoloides",
+        "Ap\u00f3sitos de Silicona"
+    ],
+    "Baja lenguas de madera": "Depresor lingual de madera"
+}
